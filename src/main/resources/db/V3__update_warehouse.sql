@@ -1,0 +1,1 @@
+alter table warehouse add column number varchar(255)
