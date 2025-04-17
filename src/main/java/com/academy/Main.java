@@ -1,12 +1,13 @@
 package com.academy;
 
-import com.academy.model.dao.AddressDao;
-import com.academy.model.dao.EmployeeDao;
-import com.academy.model.dao.impl.AddressDaoImpl;
-import com.academy.model.dao.impl.EmployeeDaoFileSystem;
+import com.academy.model.dao.ProductDao;
+import com.academy.model.dao.TestDao;
 import com.academy.model.dao.impl.EmployeeDaoImpl;
+import com.academy.model.dao.impl.ProductDaoImpl;
+import com.academy.model.dao.impl.TestDaoImpl;
 import com.academy.model.entity.Employee;
 import com.academy.model.entity.Login;
+import com.academy.model.entity.Test;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -82,7 +83,7 @@ public class Main {
 
         EmployeeDaoImpl employeeDao = new EmployeeDaoImpl();
 
-        List<Employee> employees = employeeDao.findAll();
+        List<Employee> employees = employeeDao.findAllData();
 
         Login login = new Login();
         login.setLogin("admin");
@@ -91,12 +92,20 @@ public class Main {
         Employee employee1 = Employee.builder()
                 .name("Test234")
                 .job("Engineer")
-                .salary(5000)
+                .salary(6000)
                 .login(login)
                 .build();
 
-        employeeDao.save(employee1);
+//        employeeDao.save(employee1);
+
+//        Employee employee = employeeDao.findById(10);
 //
+//        employee.setSalary(1500);
+
+//        employeeDao.save(employee);
+
+
+
 //
 //
 //        EmployeeDao employeeDao2 = new EmployeeDaoFileSystem();
@@ -106,5 +115,32 @@ public class Main {
 //        AddressDao addressDao = new AddressDaoImpl();
 
 //        addressDao.findAll();
+
+        TestDao testDao = new TestDaoImpl();
+
+        Test test = new Test();
+        test.setName("Test");
+
+//        testDao.save(test);
+
+        ProductDao productDao = new ProductDaoImpl();
+
+        productDao.findAll();
+
+        System.out.println(employeeDao.getNames());
+
+        System.out.println(employeeDao.getNameAndSalary());
+
+        employeeDao.getLogins();
+
+        employeeDao.getSalary(2000);
+
+        employeeDao.getSalaryByJobs();
+
+        employeeDao.updateSalary(1, 4000);
+
+        employeeDao.deleteEmployee(26);
+
+        employeeDao.createEmployee("John12345", 1000);
     }
 }

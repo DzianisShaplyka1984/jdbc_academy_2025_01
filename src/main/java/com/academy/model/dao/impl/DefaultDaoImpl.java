@@ -7,7 +7,7 @@ import jakarta.persistence.Query;
 import java.util.List;
 import org.hibernate.Session;
 
-public class DefaultDaoImpl<T> implements DefaultDao<T> {
+public class DefaultDaoImpl<T, ID> implements DefaultDao<T, ID> {
     private Class<T> type;
 
     public DefaultDaoImpl(Class<T> type) {
@@ -16,17 +16,17 @@ public class DefaultDaoImpl<T> implements DefaultDao<T> {
 
     @Override
     public void save(T entity) {
-//        EntityManager entityManager = DataSource.getInstance().getEntityManager();
-//        entityManager.getTransaction().begin();
-//        entityManager.persist(entity);
-//        entityManager.getTransaction().commit();
+        EntityManager entityManager = DataSource.getInstance().getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+        entityManager.getTransaction().commit();
 
-        Session session = DataSource.getInstance().getEntityManager().unwrap(Session.class);
-        session.beginTransaction();
-
-        session.saveOrUpdate(entity);
-
-        session.getTransaction().commit();
+//        Session session = DataSource.getInstance().getEntityManager().unwrap(Session.class);
+//        session.beginTransaction();
+//
+//        session.saveOrUpdate(entity);
+//
+//        session.getTransaction().commit();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class DefaultDaoImpl<T> implements DefaultDao<T> {
     }
 
     @Override
-    public T findById(Integer id) {
+    public T findById(ID id) {
         EntityManager entityManager = DataSource.getInstance().getEntityManager();
 
         return entityManager.find(type, id);

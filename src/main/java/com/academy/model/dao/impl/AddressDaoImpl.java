@@ -7,7 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import java.util.List;
 
-public class AddressDaoImpl extends DefaultDaoImpl<Address> implements AddressDao {
+public class AddressDaoImpl extends DefaultDaoImpl<Address, Integer> implements AddressDao {
     public AddressDaoImpl() {
         super(Address.class);
     }

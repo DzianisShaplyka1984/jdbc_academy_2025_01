@@ -9,7 +9,7 @@ import lombok.ToString;
 
 @Data
 @Entity
-public class Address {
+public class Address extends ModifierOptions{
     @Id
     private Integer id;
     private String city;
